@@ -35,6 +35,7 @@ new Vue({
     tempProduct: {
       imageUrl: [],
     },
+    tempIndex: 0,
   },
   methods: {
     updateProduct() {
@@ -45,6 +46,7 @@ new Vue({
           this.products.push(this.tempProduct);
           break;
         case false: // edit product
+          /*
           for (let i = 0; i < this.products.length; i++) {
             if (this.products[i].id == this.tempProduct.id) {
               //console.log(i);
@@ -53,12 +55,17 @@ new Vue({
               this.$set(this.products, i, this.tempProduct);
             }
           }
+          */
+          this.products[this.tempIndex] = this.tempProduct;
+          this.$set(this.products, this.tempIndex, this.tempProduct);
           break;
       }
       $("#productModal").modal("hide");
       //console.log(this.products);
     },
-    openModal(isNew, item) {
+    openModal(isNew, item, index) {
+      this.tempIndex = index;
+      console.log(this.tempIndex);
       switch (isNew) {
         case "new":
           this.tempProduct = {
@@ -82,13 +89,16 @@ new Vue({
     },
     delProduct() {
       // newly added
+      /*
       for (let i = 0; i < this.products.length; i++) {
         if (this.products[i].id == this.tempProduct.id) {
           console.log(i);
           this.products.splice(i, 1);
         }
       }
-      console.log(this.products);
+      */
+      this.products.splice(this.tempIndex, 1);
+      //console.log(this.products);
       $("#delProductModal").modal("hide");
     },
   },
